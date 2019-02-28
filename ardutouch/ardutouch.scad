@@ -17,8 +17,18 @@ speaker_height = depth - lip_height - speaker_depth + wall_thickness - 2;
 speaker_x = 28;
 speaker_y = 40;
 
+module pad(x, y) {
+    translate([x, y, 1])
+    cylinder(2, 10, 10, true);
+}
+
 difference() {
     union() {
+        pad(-3, -3);
+        pad(width + 3, -3);
+        pad(-3, height + 3);
+        pad(width + 3, height + 3);
+        
         translate([-wall_thickness, -wall_thickness, 0])
         difference() {
             cube([width + wall_thickness * 2, height + wall_thickness * 2, depth + wall_thickness]);
@@ -69,6 +79,9 @@ difference() {
 
     translate([width - battery_width - wall_thickness / 2, height - battery_height - wall_thickness / 2, - 1])
     cube([battery_width, battery_height, battery_depth + 1]);
+    
+    translate([width - battery_width - wall_thickness / 2 + 5, height - battery_height - wall_thickness / 2, - 1])
+    cube([battery_width - 15, battery_height, battery_depth + 5]);
 
 
 
