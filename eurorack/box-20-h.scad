@@ -1,10 +1,11 @@
 U = 5.08;
-H = 128.5;
-W = 10.5*U;
+H = 128.5 + 1;
+W = 30.25*U;
 R = 1.65;
-Depth = 50;
+Depth = 80;
 P = 2.3;
-SW = U / 2;
+SW = U / 4;
+BarHeight = 18.5;
 
 module vesa(space = 75, h = 100) {
   r = space / 2;
@@ -50,19 +51,17 @@ module box1() {
     union() {
       rotate([90, 0, 90])
       hull() {
-        translate([6, 5, -1])
+        translate([10, 5, -1])
         cylinder(W + 2, 3, 3);
 
-        translate([15, Depth + 10, -1])
-        cylinder(W + 2, 3, 3);
+        translate([7, Depth - 15, 0])
+        cube([H - 7, 1, W]);
 
-        translate([H + 5 - 2 - 11, Depth + 10, -1])
-        cylinder(W + 2, 3, 3);
-
-        translate([H + 7 - 6, 5, -1])
+        translate([H - 3, 5, -1])
         cylinder(W + 2, 3, 3);
       }
     }
+
 
     translate([SW, 3.5, 0])
     for (i = [U/2:U:W]) {
@@ -73,20 +72,21 @@ module box1() {
         cylinder(100, 3, 3, $fn = 10);
     }
 
-    for ( i = [5 * U : 10 * U : W - U] ) {
+    for ( i = [5 * U + SW: 10 * U : W - U] ) {
       translate([i, -1, Depth - 13])
       rotate([270, 0, 0])
       cylinder(1000, 2, 2);
     }
 
-    hull() {
-      translate([-1, 6.2, 30])
-      rotate([-7.2, 0, 0])
-      cube([W + 2, 2, 19]);
 
-      translate([-1, 127.27, 30])
-      rotate([7.2, 0, 0])
-      cube([W + 2, 2, 19]);
+    hull() {
+      translate([-1, 10.55, Depth - 1.5])
+      rotate([180 + -7.2, 0, 0])
+      cube([W + 2, 2, BarHeight]);
+
+      translate([-1, H - 1.55, Depth - 1.5])
+      rotate([180 + 7.2, 0, 0])
+      cube([W + 2, 2, BarHeight]);
     }
 
     translate([0, (H + 7) / 2, -10])
@@ -140,6 +140,7 @@ module box1() {
 */
     }
 }
+
 
 
 
