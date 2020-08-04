@@ -1,11 +1,12 @@
 U = 5.08;
 H = 128.5 + 1;
-W = 30.25*U;
+W = 30.5*U;
 R = 1.65;
-Depth = 80;
+Depth = 65;
 P = 2.3;
-SW = U / 4;
+SW = U / 2;
 BarHeight = 18.5;
+Flare = 7;
 
 module vesa(space = 75, h = 100) {
   r = space / 2;
@@ -28,7 +29,7 @@ module box1() {
     union() {
       rotate([90, 0, 90])
       hull() {
-        translate([0, 0, 0])
+        translate([4 - Flare, 0, 0])
         cylinder(W, 4, 4);
 
         translate([2, Depth - 1, 0])
@@ -37,7 +38,7 @@ module box1() {
         translate([H + 7 - 2, Depth - 1, 0])
         cylinder(W, 2, 2);
 
-        translate([H + 7, 0, 0])
+        translate([H + 3 + Flare, 0, 0])
         cylinder(W, 4, 4);
       }
     }
@@ -73,7 +74,7 @@ module box1() {
     }
 
     for ( i = [5 * U + SW: 10 * U : W - U] ) {
-      translate([i, -1, Depth - 13])
+      translate([i, -100, Depth - 13])
       rotate([270, 0, 0])
       cylinder(1000, 2, 2);
     }
@@ -102,11 +103,16 @@ module box1() {
 
   }
 
+  if (Flare > 5) {
+
+
+  }
+
     if (SW > 0) {
       union() {
         rotate([90, 0, 90])
         hull() {
-          translate([0, 0, 0])
+          translate([4 - Flare, 0, 0])
           cylinder(SW, 4, 4);
 
           translate([2, Depth - 1, 0])
@@ -115,7 +121,7 @@ module box1() {
           translate([H + 7 - 2, Depth - 1, 0])
           cylinder(SW, 2, 2);
 
-          translate([H + 7, 0, 0])
+          translate([H + 3 + Flare, 0, 0])
           cylinder(SW, 4, 4);
         }
       }
