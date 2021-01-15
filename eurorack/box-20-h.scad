@@ -24,8 +24,8 @@ module vesa(space = 75, h = 100) {
   cylinder(h, 3, 3);
 }
 
-module box1() {
-  difference() {
+
+module profile(W) {
     union() {
       rotate([90, 0, 90])
       hull() {
@@ -42,12 +42,16 @@ module box1() {
         cylinder(W, 4, 4);
       }
     }
+}
+
+module box1() {
+difference() {
+union() {
+  difference() {
+    profile(W);
 
     translate([-1, 3.5, Depth - 1.5])
     cube([W + 2, H, Depth - 1.5]);
-
-    // translate([-1, 7, 6])
-    // cube([W + 2, H - 7, Depth - 5]);
 
     union() {
       rotate([90, 0, 90])
@@ -61,6 +65,8 @@ module box1() {
         translate([H - 3, 5, -1])
         cylinder(W + 2, 3, 3);
       }
+
+
     }
 
 
@@ -90,65 +96,44 @@ module box1() {
       cube([W + 2, 2, BarHeight]);
     }
 
-    translate([0, (H + 7) / 2, -10])
-    vesa(75);
-
-    translate([W, (H + 7) / 2, -10])
-    vesa(75);
-
-    if (W > 100) {
-      translate([W / 2, (H + 7) / 2, -10])
-      vesa(75);
-    }
 
   }
 
-  if (Flare > 5) {
-
-
+  if (SW > 0) {
+    profile(SW);
   }
 
-    if (SW > 0) {
-      union() {
-        rotate([90, 0, 90])
-        hull() {
-          translate([4 - Flare, 0, 0])
-          cylinder(SW, 4, 4);
+}
+  if (Flare >= 7) {
+    translate([-W/4, -Flare + 7.5, 3])
+    rotate([0, 90, 0])
+    cylinder(W * 2, 4, 4);
 
-          translate([2, Depth - 1, 0])
-          cylinder(SW, 2, 2);
-
-          translate([H + 7 - 2, Depth - 1, 0])
-          cylinder(SW, 2, 2);
-
-          translate([H + 3 + Flare, 0, 0])
-          cylinder(SW, 4, 4);
-        }
-      }
-/*
-      translate([W - SW, 0, 0])
-      union() {
-        rotate([90, 0, 90])
-        hull() {
-          translate([0, 0, 0])
-          cylinder(SW, 4, 4);
-
-          translate([2, Depth - 1, 0])
-          cylinder(SW, 2, 2);
-
-          translate([H + 7 - 2, Depth - 1, 0])
-          cylinder(SW, 2, 2);
-
-          translate([H + 7, 0, 0])
-          cylinder(SW, 4, 4);
-        }
-      }
-*/
-    }
+    translate([-W/4, H + Flare, 3])
+    rotate([0, 90, 0])
+    cylinder(W * 2, 4, 4);
+  }
+}
 }
 
 
+  box1();
 
 
-box1();
+/*
 
+    if (IncludeVesaMount) {
+      translate([0, (H + 7) / 2, -10])
+      vesa(75);
+
+      translate([W, (H + 7) / 2, -10])
+      vesa(75);
+
+
+      if (W > 100) {
+        translate([W / 2, (H + 7) / 2, -10])
+        vesa(75);
+      }
+    }
+
+*/

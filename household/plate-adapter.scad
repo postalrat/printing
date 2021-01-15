@@ -1,8 +1,8 @@
-InnerDiameter = 23;
-OuterDiameter = 51;
+InnerDiameter = 24;
+OuterDiameter = 53;
 LipHeight = 5;
 LipDiameter = OuterDiameter + 5;
-Height = 40;
+Height = 35;
 
 difference() {
   union() {
